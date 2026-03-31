@@ -66,6 +66,14 @@ bool areCousins(int x, int y, unordered_map<int, int>& parent,
     return depth[x] == depth[y] && parent[x] != parent[y];
 }
 
+// Free tree memory
+void freeTree(TreeNode* root) {
+    if (!root) return;
+    freeTree(root->left);
+    freeTree(root->right);
+    delete root;
+}
+
 int main() {
     int q;
     cin >> q;
@@ -97,6 +105,9 @@ int main() {
         int y = query.second;
         cout << (areCousins(x, y, parent, depth) ? 1 : 0) << endl;
     }
+
+    // Free allocated memory
+    freeTree(root);
 
     return 0;
 }
